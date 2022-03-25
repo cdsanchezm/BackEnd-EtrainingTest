@@ -4,14 +4,7 @@ const Course = require('../models/course');
 
 const courseGet = async(req = request, res = response) => {
 
-    const { limite = 5, desde = 0 } = req.query;
-    const query = { estado: true };
-    const [ total, courses ] = await Promise.all([
-        courses.countDocuments(query),
-        courses.find(query)
-            .skip( Number( desde ) )
-            .limit(Number( limite ))
-    ]);
+    const courses = await Course.find();
 
     res.json({
         total,
