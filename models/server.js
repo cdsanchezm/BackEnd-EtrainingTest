@@ -8,9 +8,9 @@ class Server {
     constructor() {
         this.app  = express();
         this.port = process.env.PORT;
-        this.coursePath = '/api/courses';
+        this.usuariosPath = '/api/courses';
 
-        //conectar a la base de datos
+        // Conectar a base de datos
         this.conectarDB();
 
         // Middlewares
@@ -23,6 +23,7 @@ class Server {
     async conectarDB() {
         await dbConnection();
     }
+
 
     middlewares() {
 
@@ -38,7 +39,7 @@ class Server {
     }
 
     routes() {
-        this.app.use( this.coursePath, require('../routes/courses') );
+        this.app.use( this.usuariosPath, require('../routes/courses'));
     }
 
     listen() {
