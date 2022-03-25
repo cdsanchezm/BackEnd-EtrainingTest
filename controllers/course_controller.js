@@ -49,7 +49,7 @@ const courseDelete = async (req, res = response) => {
     const { id } = req.params;
 
     // Fisicamente lo borramos
-     const course = await course.findByIdAndDelete( id );
+     const course = await Course.findByIdAndDelete( id );
 
 
     res.json(course);
