@@ -2,18 +2,23 @@ const { response, request } = require('express');
 const Course = require('../models/course');
 
 
-const courseGet = async (req = request, res = response) => {
+const courseGet = async(req = request, res = response) => {
 
-    // const { q, nombre = 'No name', apikey, page = 1, limit } = req.query;
-    
-    const total = await Course.countDocuments();
-
+    const { limite = 5, desde = 0 } = req.query;
+    const query = { estado: true };
+    const [ total, courses ] = await Promise.all([
+        courses.countDocuments(query),
+        courses.find(query)
+            .skip( Number( desde ) )
+            .limit(Number( limite ))
+    ]);
 
     res.json({
-       total,
-       courses
+        total,
+        courses
     });
 }
+
 
 const coursePost = async(req, res = response) => {
 
