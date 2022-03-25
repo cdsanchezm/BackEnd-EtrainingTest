@@ -5,10 +5,7 @@ const Course = require('../models/course');
 const courseGet = async (req = request, res = response) => {
 
     // const { q, nombre = 'No name', apikey, page = 1, limit } = req.query;
-    const { limite = 1 } = req.query;
-    const courses = await Course.find()
-    .limit(Number(limite));
-
+    
     const total = await Course.countDocuments();
 
 
