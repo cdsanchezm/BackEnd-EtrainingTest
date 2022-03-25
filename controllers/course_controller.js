@@ -1,4 +1,5 @@
 const { response, request } = require('express');
+const course = require('../models/course');
 const Course = require('../models/course');
 
 
@@ -47,12 +48,11 @@ const courseDelete = async (req, res = response) => {
 
     const { id } = req.params;
 
-    // Fist we delete the course
-   const course = await Course.findByIdAndDelete(id);
+    // Fisicamente lo borramos
+     const course = await course.findByIdAndDelete( id );
 
-    res.json({
-       course
-    });
+
+    res.json(course);
 }
 
 
