@@ -30,7 +30,7 @@ router.post('/',[
 router.delete('/:id',[
     check('id', 'No es un ID válido').isMongoId(),
     validarCampos
-], courseDelete );
+],courseDelete );
 
 router.patch('/', coursePatch );
 
