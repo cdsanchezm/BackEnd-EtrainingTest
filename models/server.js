@@ -39,7 +39,7 @@ class Server {
     }
 
     routes() {
-        this.app.use( this.usuariosPath, require('../routes/courses'));
+        this.app.use( this.coursePath, require('../routes/courses'));
     }
 
     listen() {
