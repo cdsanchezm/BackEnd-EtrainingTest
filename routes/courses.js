@@ -5,6 +5,7 @@ const { courseGet,
         coursePut,
         coursePost,
         courseDelete,
+        courseGetById,
         coursePatch } = require('../controllers/course_controller');
 
 const router = Router();
@@ -33,6 +34,14 @@ router.delete('/:id',[
 ],courseDelete );
 
 router.patch('/', coursePatch );
+
+router.get('/:id',[
+    check('id', 'No es un ID válido').isMongoId(),
+    validarCampos
+],courseGetById );
+
+
+
 
 
 

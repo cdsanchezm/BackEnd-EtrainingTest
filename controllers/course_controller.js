@@ -4,11 +4,19 @@ const Course = require('../models/course');
 
 
 const courseGet = async(req = request, res = response) => {
-
+    const { id } = req.params;
     const courses = await Course.find();
 
     res.json({
         courses
+    });
+}
+
+const courseGetById = async (req, res = response) => {
+    const { id } = req.params;
+    const course = await Course.findById(id);
+    res.json({
+        course
     });
 }
 
@@ -64,4 +72,5 @@ module.exports = {
     coursePut,
     coursePatch,
     courseDelete,
+    courseGetById,
 }
