@@ -1,39 +1,46 @@
 const { response, request } = require('express');
+const Course = require('../models/course');
 
 
-const courseGet = (req = request, res = response) => {
+const courseGet = async (req = request, res = response) => {
 
-    const { q, nombre = 'No name', apikey, page = 1, limit } = req.query;
+    // const { q, nombre = 'No name', apikey, page = 1, limit } = req.query;
+    const { limite = 1 } = req.query;
+    const courses = await Course.find()
+    .limit(Number(limite));
+
+    const total = await Course.countDocuments();
+
 
     res.json({
-        msg: 'get API - controlador',
-        q,
-        nombre,
-        apikey,
-        page, 
-        limit
+       total,
+       courses
     });
 }
 
-const coursePost = (req, res = response) => {
+const coursePost = async(req, res = response) => {
 
-    const { nombre, edad } = req.body;
+   
+    const body = req.body;
+    const course = new Course( body );
+
+     await course.save();
 
     res.json({
-        msg: 'post API - usuariosPost',
-        nombre, 
-        edad
+        course
     });
 }
 
-const coursePut = (req, res = response) => {
+const coursePut = async (req, res = response) => {
 
     const { id } = req.params;
+    const{ _id, ...resto} = req.body;
 
-    res.json({
-        msg: 'put API - usuariosPut',
-        id
-    });
+    //TODO: validar que el id exista
+    
+    const course = await Course.findByIdAndUpdate(id,resto);
+        
+    res.json({ course});
 }
 
 const coursePatch = (req, res = response) => {
@@ -42,9 +49,15 @@ const coursePatch = (req, res = response) => {
     });
 }
 
-const courseDelete = (req, res = response) => {
+const courseDelete = async (req, res = response) => {
+
+    const { id } = req.params;
+
+    // Fist we delete the course
+   const course = await Course.findByIdAndDelete(id);
+
     res.json({
-        msg: 'delete API - usuariosDelete'
+       course
     });
 }
 
