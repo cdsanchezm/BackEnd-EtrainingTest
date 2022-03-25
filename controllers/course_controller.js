@@ -7,7 +7,6 @@ const courseGet = async(req = request, res = response) => {
     const courses = await Course.find();
 
     res.json({
-        total,
         courses
     });
 }
